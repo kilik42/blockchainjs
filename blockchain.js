@@ -1,5 +1,5 @@
 let sha256 = require('js-sha256')
-
+let Block = require('./block')
 class Blockchain {
   constructor(genesisBlock){
     this.blocks = []
@@ -19,7 +19,25 @@ class Blockchain {
 
   generateHash(block){
       let hash = sha256(block.key)
+      while(!hash.startWith("00000")){
+        block.nonce +=1
+        hash = sha256(block.key)
+        console.log(hash)
+      }
       return hash
+  }
+
+  getNextBlock(transactions){
+    let block = new Block()
+
+    transactions.forEach(function(transaction){
+      block.addTransaction(transaction)
+    })
+    let previousBlock = this.getPreviousBlock()
+  }
+
+  getPreviousBlock(){
+    
   }
 }
 module.exports = Blockchain
