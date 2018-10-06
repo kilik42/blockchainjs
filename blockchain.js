@@ -1,5 +1,5 @@
 let sha256 = require('js-sha256')
-let Block = require('./block')
+let block = require('./block')
 class Blockchain {
   constructor(genesisBlock){
     this.blocks = []
@@ -7,9 +7,9 @@ class Blockchain {
   }
 
   addBlock(block){
-    if(this.blocks.length ==0){
-      console.log("geneis block")
-      block.previousHash = "000000000000000"
+    if(this.blocks.length == 0){
+      // console.log("geneis block")
+      block.previousHash = "0000000000000000000"
       block.hash = this.generateHash(block)
     }
 
@@ -37,7 +37,7 @@ class Blockchain {
   }
 
   getPreviousBlock(){
-    
+
   }
 }
 module.exports = Blockchain

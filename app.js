@@ -7,13 +7,20 @@ const express = require('express')
 const app = express()
 const bodyParser = require('body-parser')
 
+let transactions = []
+let genesisBlock = new Block()
+let blockchain = new Blockchain()
 
 app.use(bodyParser.json())
-let transactions = []
-
 
 app.get('/', function(req, res){
   res.send("hello world")
+})
+
+app.get('/mine', function(req, res){
+
+    let block = blockchain.getNextBlock(transactions)
+    res.json(block)
 })
 
 app.post('/transaction', function(req, res){
@@ -39,21 +46,22 @@ app.post('/transaction', function(req, res){
 
 app.get('/blockchain', function(req, res){
 
-
-  let transaction = new Transaction('Mary', 'Jerry', 100)
-
-  let genesisBlock = new Block()
-  let blockchain = new Blockchain(genesisBlock)
-
-  let block = blockchain.getNextBlock([transaction])
-  blockchain.addBlock(block)
-
-  let anotherTransaction = new Transaction("Azam", "Jerry", 10)
-  let block1 = blockchain.getNextBlock([anotherTransaction, transaction])
-  blockchain.addBlock(block1)
-
-  res.json(blockchain)
+ res.json(blockchain)
+  // let transaction = new Transaction('Mary', 'Jerry', 100)
+  //
+  // let genesisBlock = new Block()
+  // let blockchain = new Blockchain(genesisBlock)
+  //
+  // let block = blockchain.getNextBlock([transaction])
+  // blockchain.addBlock(block)
+  //
+  // let anotherTransaction = new Transaction("Azam", "Jerry", 10)
+  // let block1 = blockchain.getNextBlock([anotherTransaction, transaction])
+  // blockchain.addBlock(block1)
+  //
+  // res.json(blockchain)
 })
+
 
 
 
