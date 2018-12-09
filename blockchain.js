@@ -10,7 +10,7 @@ class Blockchain {
 
   addBlock(block){
     if(this.blocks.length == 0){
-      
+
       block.previousHash = "000000000000000"
       block.hash = this.generateHash(block)
     }
@@ -42,7 +42,7 @@ class Blockchain {
 
   generateHash(block){
       let hash = sha256(block.key)
-      while(!hash.startWith("000")){
+      while(!hash.startsWith("000")){
         block.nonce +=1
         hash = sha256(block.key)
         console.log(hash)
