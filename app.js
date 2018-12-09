@@ -3,6 +3,9 @@ let Blockchain = require('./blockchain')
 let BlockchainNode = require('./BlockchainNode')
 let Transaction = require('./transaction')
 
+let fetch = require('node-fetch')
+
+
 const express = require('express')
 const app = express()
 const bodyParser = require('body-parser')
@@ -23,6 +26,20 @@ process.argv.forEach(function(val, index, array){
 if(port == undefined){
   port = 3000
 }
+
+app.get('./resolve', function(reeq,res){
+    nodes.forEach(function(node){
+
+      fetch(node.url+ './blockchain')
+      .then(function(response){
+        return response.json()
+      })
+      .then(function(blockchain){
+        console.log(blockchain)
+      })
+    })
+
+})
 app.post('nodes/register', function(req, res){
   let nodesList = req.body.urls
   nodesList.forEach(function(nodeDictionary){
