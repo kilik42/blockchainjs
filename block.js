@@ -8,7 +8,7 @@ class Block{
   }
   //getter
   get key(){
-    return JSON.stringify(this.transactions) + this.index + this.previousHash
+    return JSON.stringify(this.transactions) + this.index + this.previousHash+ this.nonce
 
     }
 
